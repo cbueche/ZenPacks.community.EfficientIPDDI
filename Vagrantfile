@@ -27,6 +27,10 @@ Vagrant.configure("2") do |config|
     config.vm.define :zenoss do |box|
       box.vm.box = 'puppetlabs/centos-6.6-64-puppet'
       box.vm.hostname = 'zenoss.msp'
+      box.vm.network :forwarded_port, host: 8888, guest: 8080
+      box.vm.synced_folder ".", "/tmp/vagrant",
+        owner: "zenoss", group: "zenoss",
+        mount_options: ["uid=1337", "gid=1001"]
 
       box.vm.provision "shell", inline: <<-SCRIPT
 
@@ -113,10 +117,5 @@ Vagrant.configure("2") do |config|
 
       SCRIPT
 
-      box.vm.network :forwarded_port, host: 8888, guest: 8080
-      config.vm.synced_folder ".",
-        "/tmp/#{File.basename(File.expand_path(File.dirname(__FILE__)))}",
-        owner: 1337,
-        group: 501
     end
 end

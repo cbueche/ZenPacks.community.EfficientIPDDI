@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a Zenpack for [Efficient iP DDI](http://www.efficientip.com/solutions/smart-ddi/) monitoring. This Zenpack is developed using [zenpacklib](https://zenpacklib.zenoss.com) on Zenoss 4.x and should as well run under Zenoss 5.x.
+This is a Zenpack for [Efficient iP DDI](http://www.efficientip.com/solutions/smart-ddi/) monitoring. This Zenpack is developed using the [ZenPack SDK](https://www.zenoss.com/product/zenpacks/zenpacklib) on Zenoss 4.x and might as well run under Zenoss 5.x.
 
 ## Supported devices
 
@@ -94,7 +94,30 @@ The plugins are automatically assigned during the Zenpack installation:
 
 # Development notes
 
-Using Vagrant in Virtualbox, use `vagrant up` to create and start a Zenoss to further develop this Zenpack. In the VM, /tmp/work is mapped to the Zenpack source, you can use these commands to install it:
+## Vagrant development environment
+
+Using Vagrant in Virtualbox, use `vagrant up` to create and start a Zenoss to further develop this Zenpack.
+
+## ZenPack SDK
+
+This Zenpack depends on the presence of the ZenPack SDK that can be found at the [ZenPack SDK site](https://www.zenoss.com/product/zenpacks/zenpacklib).
+
+The development happened with version 2.0.4 of 21.2.2017
+
+```
+easy_install PyYAML
+
+cd /tmp
+wget http://wiki.zenoss.org/download/zenpacks/ZenPacks.zenoss.ZenPackLib/2.0.4/ZenPacks.zenoss.ZenPackLib-2.0.4.egg
+zenpack --install ZenPacks.zenoss.ZenPackLib-2.0.4.egg
+zenoss restart
+zenpacklib --version
+# brings up 2.0.3, maybe the version bump didn't happen when they released 2.04
+```
+
+## filesystem mapping
+
+In the VM, /tmp/vagrant is mapped to the Zenpack source, you can use these commands to install it:
 
     zenpack --link --install ZenPacks.community.EfficientIPDDI
     zopectl restart; zenhub restart
@@ -109,4 +132,4 @@ Using Vagrant in Virtualbox, use `vagrant up` to create and start a Zenoss to fu
 
 # Resources
 
-- [zenpacklib](http://zenpacklib.zenoss.com/)
+- [ZenPack SDK](https://www.zenoss.com/product/zenpacks/zenpacklib)
