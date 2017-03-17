@@ -18,7 +18,8 @@ Vagrant.configure("2") do |config|
 
     config.vm.provider "virtualbox" do |virtualbox|
       virtualbox.cpus = 2
-      virtualbox.memory = 8192
+      #virtualbox.memory = 8192
+      virtualbox.memory = 6000
       virtualbox.name = 'dev_zenpack_efficientipddi'
       virtualbox.customize ["modifyvm", :id, "--ioapic", "on"]
       virtualbox.customize ["modifyvm", :id, "--vram", "16"]

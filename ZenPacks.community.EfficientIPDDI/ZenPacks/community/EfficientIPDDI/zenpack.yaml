@@ -1,1 +1,235 @@
 name: ZenPacks.community.EfficientIPDDI
+
+classes:
+
+  EfficientIPDDIDevice:
+    base: [zenpacklib.Device]
+    label: EfficientIPDDI
+
+device_classes:
+
+  /Server/EfficientIP:
+    zProperties:
+      zDeviceTemplates:
+        - Device
+        - DNSstats
+        - DHCPstats
+      zPythonClass: ZenPacks.community.EfficientIPDDI.EfficientIPDDIDevice
+      zFileSystemMapIgnoreNames: ^(/dev|/proc)
+      zCollectorPlugins:
+          # modelers from Zenoss
+          - zenoss.snmp.NewDeviceMap
+          - zenoss.snmp.DeviceMap
+          - zenoss.snmp.InterfaceMap
+          - zenoss.snmp.UCDHardDiskMap
+          - zenoss.snmp.HRFileSystemMap
+          - zenoss.snmp.CpuMap
+
+    templates:
+
+      DHCPstats:
+        description: Efficient-IP DHCP Statistics
+        datasources:
+          ack:
+            type: SNMP
+            datapoints:
+              ack: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.3.2.22.1.2.3.97.99.107
+          nack:
+            type: SNMP
+            datapoints:
+              nack: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.3.2.22.1.3.4.110.97.99.107
+          offer:
+            type: SNMP
+            datapoints:
+              offer: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.3.2.22.1.3.5.111.102.102.101.114
+          inform:
+            type: SNMP
+            datapoints:
+              inform: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.3.2.22.1.3.6.105.110.102.111.114.109
+          decline:
+            type: SNMP
+            datapoints:
+              decline: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.3.2.22.1.3.7.100.101.99.108.105.110.101
+          release:
+            type: SNMP
+            datapoints:
+              release: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.3.2.22.1.3.7.114.101.108.101.97.115.101
+          request:
+            type: SNMP
+            datapoints:
+              request: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.3.2.22.1.3.7.114.101.113.117.101.115.116
+          discover:
+            type: SNMP
+            datapoints:
+              discover: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.3.2.22.1.3.8.100.105.115.99.111.118.101.114
+
+        graphs:
+            DHCP-answers-ack:
+              comments: [The number of ACK answers sent.]
+              graphpoints:
+                ack:
+                  dpName: ack_ack
+                  lineType: AREA
+            DHCP-answers-nack:
+              comments: [The number of NACK answers sent.]
+              graphpoints:
+                nack:
+                  dpName: nack_nack
+                  lineType: AREA
+            DHCP-answers-offer:
+              comments: [The number of OFFER answers sent.]
+              graphpoints:
+                offer:
+                  dpName: offer_offer
+                  lineType: AREA
+            DHCP-answers-inform:
+              comments: [The number of INFORM messages received.]
+              graphpoints:
+                inform:
+                  dpName: inform_inform
+                  lineType: AREA
+            DHCP-answers-decline:
+              comments: [The number of DECLINE messages received.]
+              graphpoints:
+                decline:
+                  dpName: decline_decline
+                  lineType: AREA
+            DHCP-answers-release:
+              comments: [The number of RELEASE messages received.]
+              graphpoints:
+                release:
+                  dpName: release_release
+                  lineType: AREA
+            DHCP-answers-request:
+              comments: [The number of REQUEST messages received.]
+              graphpoints:
+                request:
+                  dpName: request_request
+                  lineType: AREA
+            DHCP-answers-discover:
+              comments: [The number of DISCOVER messages received.]
+              graphpoints:
+                discover:
+                  dpName: discover_discover
+                  lineType: AREA
+
+      DNSstats:
+        #targetPythonClass: ZenPacks.community.EfficientIPDDI.EfficientIPDDIDevice
+        description: Efficient-IP DNS Statistics
+        datasources:
+          dnsudp:
+            type: SNMP
+            datapoints:
+              dnsudp: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.3.117.100.112
+          dnstcp:
+            type: SNMP
+            datapoints:
+              dnstcp: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.3.116.99.112
+          requestv4:
+            type: SNMP
+            datapoints:
+              requestv4: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.9.114.101.113.117.101.115.116.118.52
+          requestv6:
+            type: SNMP
+            datapoints:
+              requestv6: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.9.114.101.113.117.101.115.116.118.54
+
+        graphs:
+            DNS-queries-UDP:
+              comments: [The number of queries received through UDP.]
+              graphpoints:
+                dnsudp:
+                  dpName: dnsudp_dnsudp
+                  lineType: AREA
+            DNS-queries-TCP:
+              comments: [The number of queries received through TCP.]
+              graphpoints:
+                dnstcp:
+                  dpName: dnstcp_dnstcp
+                  lineType: AREA
+            DNS-requests:
+              comments: [The number of queries received through IPv4 and IPv6.]
+              graphpoints:
+                requestv4:
+                  dpName: requestv4_requestv4
+                  lineType: AREA
+                requestv6:
+                  dpName: requestv6_requestv6
+                  lineType: AREA
+                  stacked: true
+
+#
+# General Name Server Statistics
+# FIXME : need to identify what is important and only do those
+# else, too many thing to implement. The list goes much further in the PDF doc
+#
+# dns_udp : 1.3.6.1.4.1.2440.1.4.2.3.1.3.3.117.100.112
+# dns_tcp : 1.3.6.1.4.1.2440.1.4.2.3.1.3.3.116.99.112
+# dns_requestv4 : 1.3.6.1.4.1.2440.1.4.2.3.1.3.9.114.101.113.117.101.115.116.118.52
+# dns_requestv6 : 1.3.6.1.4.1.2440.1.4.2.3.1.3.9.114.101.113.117.101.115.116.118.54
+# dns_res_queryv4 : 1.3.6.1.4.1.2440.1.4.2.3.1.3.11.114.101.115.95.113.117.101.114.121.118.52
+# dns_res_queryv6 : 1.3.6.1.4.1.2440.1.4.2.3.1.3.11.114.101.115.95.113.117.101.114.121.118.54
+# dns_recursion : 1.3.6.1.4.1.2440.1.4.2.3.1.3.9.114.101.99.117.114.115.105.111.110
+# dns_ recurserej : 1.3.6.1.4.1.2440.1.4.2.3.1.3.10.114.101.99.117.114.115.101.114.101.106
+# dns_duplicate : 1.3.6.1.4.1.2440.1.4.2.3.1.3.9.100.117.112.108.105.99.97.116.101
+# dns_dropped : 1.3.6.1.4.1.2440.1.4.2.3.1.3.7.100.114.111.112.112.101.100
+# dns_res_retry : 1.3.6.1.4.1.2440.1.4.2.3.1.3.9.114.101.115.95.114.101.116.114.121
+# dns_response : 1.3.6.1.4.1.2440.1.4.2.3.1.3.8.114.101.115.112.111.110.115.101
+# dns_res_responsev4 :  1.3.6.1.4.1.2440.1.4.2.3.1.3.14.114.101.115.95.114.101.115.112.111.110.115.101.118.52
+# dns_res_responsev6 : 1.3.6.1.4.1.2440.1.4.2.3.1.3.14.114.101.115.95.114.101.115.112.111.110.115.101.118.54
+
+# -----------------------------------------------------
+# DHCP service
+# -----------------------------------------------------
+
+# .1.3.6.1.4.1.2440.1.3.2.22.1.2.3.97.99.107
+# Variable name: ack
+#  Type: Integer
+# Description: The number of ACK answers sent.
+#
+# .1.3.6.1.4.1.2440.1.3.2.22.1.3.4.110.97.99.107
+# Variable name: nack
+#  Type: Integer
+# Description: The number of NACK answers sent.
+#
+# .1.3.6.1.4.1.2440.1.3.2.22.1.3.5.111.102.102.101.114
+# Variable name: offer
+#  Type: Integer
+# Description: The number of OFFER answers sent.
+#
+# .1.3.6.1.4.1.2440.1.3.2.22.1.3.6.105.110.102.111.114.109
+# Variable name: inform
+#  Type: Integer
+# Description: The number of INFORM messages received.
+#
+# .1.3.6.1.4.1.2440.1.3.2.22.1.3.7.100.101.99.108.105.110.101
+# Variable name: decline
+#  Type: Integer
+# Description: The number of DECLINE messages received.
+#
+# .1.3.6.1.4.1.2440.1.3.2.22.1.3.7.114.101.108.101.97.115.101
+# Variable name: release
+#  Type: Integer
+# Description: The number of RELEASE messages received.
+#
+# .1.3.6.1.4.1.2440.1.3.2.22.1.3.7.114.101.113.117.101.115.116
+# Variable name: request
+#  Type: Integer
+# Description: The number of REQUEST messages received.
+#
+# .1.3.6.1.4.1.2440.1.3.2.22.1.3.8.100.105.115.99.111.118.101.114
+# Variable name: discover
+#  Type: Integer
+# Description: The number of DISCOVER messages received.

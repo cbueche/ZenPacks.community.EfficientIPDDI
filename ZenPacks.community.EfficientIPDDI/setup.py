@@ -4,12 +4,12 @@
 # NB: PACKAGES is deprecated
 NAME = "ZenPacks.community.EfficientIPDDI"
 VERSION = "1.0.0dev"
-AUTHOR = "Your Name Here"
-LICENSE = ""
+AUTHOR = "Charles Bueche"
+LICENSE = "GPLv3"
 NAMESPACE_PACKAGES = ['ZenPacks', 'ZenPacks.community']
 PACKAGES = ['ZenPacks', 'ZenPacks.community', 'ZenPacks.community.EfficientIPDDI']
 INSTALL_REQUIRES = ['ZenPacks.zenoss.ZenPackLib']
-COMPAT_ZENOSS_VERS = ""
+COMPAT_ZENOSS_VERS = ">=4.2.5"
 PREV_ZENPACK_NAME = ""
 # STOP_REPLACEMENTS
 ################################

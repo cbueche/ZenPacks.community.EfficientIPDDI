@@ -55,13 +55,13 @@ This is a one-time operation that is needed for devices that were present before
 `zendmd`
 
 ```
-for d in dmd.Devices.FIXME.getSubDevicesGen():
+for d in dmd.Devices.Server.EfficientIP.getSubDevicesGen():
     devname = d.getId()
     print('checking %s' % devname)
-    if d.__class__.__name__ != 'FIXMEDevice':
-        dmd.Devices.FIXME.moveDevices('/FIXME', devname)
+    if d.__class__.__name__ != 'EfficientIPDDIDevice':
+        dmd.Devices.Server.EfficientIP.moveDevices('/Server/EfficientIP', devname)
         commit()
-        print('class of %s set to FIXMEDevice' % devname)
+        print('class of %s set to EfficientIPDDIDevice' % devname)
 
 ```
 
@@ -114,6 +114,10 @@ zenoss restart
 zenpacklib --version
 # brings up 2.0.3, maybe the version bump didn't happen when they released 2.04
 ```
+
+Debug mode for zenpack installation:
+
+`zenpack -v 10 --link --install ZenPacks.community.EfficientIPDDI`
 
 ## filesystem mapping
 
