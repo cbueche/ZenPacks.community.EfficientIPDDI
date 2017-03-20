@@ -27,7 +27,9 @@ device_classes:
 
     templates:
 
+      # -----------------------------------------------------------------
       DHCPstats:
+      # -----------------------------------------------------------------
         description: Efficient-IP DHCP Statistics
         datasources:
           ack:
@@ -72,68 +74,69 @@ device_classes:
             oid: 1.3.6.1.4.1.2440.1.3.2.22.1.3.8.100.105.115.99.111.118.101.114
 
         graphs:
-            DHCP-answers-ack:
-              comments: [The number of ACK answers sent.]
-              graphpoints:
-                ack:
-                  dpName: ack_ack
-                  lineType: AREA
-            DHCP-answers-nack:
-              comments: [The number of NACK answers sent.]
-              graphpoints:
-                nack:
-                  dpName: nack_nack
-                  lineType: AREA
-            DHCP-answers-offer:
-              comments: [The number of OFFER answers sent.]
-              graphpoints:
-                offer:
-                  dpName: offer_offer
-                  lineType: AREA
-            DHCP-answers-inform:
-              comments: [The number of INFORM messages received.]
-              graphpoints:
-                inform:
-                  dpName: inform_inform
-                  lineType: AREA
-            DHCP-answers-decline:
-              comments: [The number of DECLINE messages received.]
-              graphpoints:
-                decline:
-                  dpName: decline_decline
-                  lineType: AREA
-            DHCP-answers-release:
-              comments: [The number of RELEASE messages received.]
-              graphpoints:
-                release:
-                  dpName: release_release
-                  lineType: AREA
-            DHCP-answers-request:
-              comments: [The number of REQUEST messages received.]
-              graphpoints:
-                request:
-                  dpName: request_request
-                  lineType: AREA
-            DHCP-answers-discover:
-              comments: [The number of DISCOVER messages received.]
-              graphpoints:
-                discover:
-                  dpName: discover_discover
-                  lineType: AREA
+          DHCP-answers-ack:
+            comments: [The number of ACK answers sent.]
+            graphpoints:
+              ack:
+                dpName: ack_ack
+                lineType: AREA
+          DHCP-answers-nack:
+            comments: [The number of NACK answers sent.]
+            graphpoints:
+              nack:
+                dpName: nack_nack
+                lineType: AREA
+          DHCP-answers-offer:
+            comments: [The number of OFFER answers sent.]
+            graphpoints:
+              offer:
+                dpName: offer_offer
+                lineType: AREA
+          DHCP-answers-inform:
+            comments: [The number of INFORM messages received.]
+            graphpoints:
+              inform:
+                dpName: inform_inform
+                lineType: AREA
+          DHCP-answers-decline:
+            comments: [The number of DECLINE messages received.]
+            graphpoints:
+              decline:
+                dpName: decline_decline
+                lineType: AREA
+          DHCP-answers-release:
+            comments: [The number of RELEASE messages received.]
+            graphpoints:
+              release:
+                dpName: release_release
+                lineType: AREA
+          DHCP-answers-request:
+            comments: [The number of REQUEST messages received.]
+            graphpoints:
+              request:
+                dpName: request_request
+                lineType: AREA
+          DHCP-answers-discover:
+            comments: [The number of DISCOVER messages received.]
+            graphpoints:
+              discover:
+                dpName: discover_discover
+                lineType: AREA
 
+      # -----------------------------------------------------------------
       DNSstats:
-        #targetPythonClass: ZenPacks.community.EfficientIPDDI.EfficientIPDDIDevice
+      # -----------------------------------------------------------------
         description: Efficient-IP DNS Statistics
         datasources:
-          dnsudp:
+          udp:
             type: SNMP
             datapoints:
-              dnsudp: COUNTER
+              udp: COUNTER
             oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.3.117.100.112
-          dnstcp:
+          tcp:
             type: SNMP
             datapoints:
-              dnstcp: COUNTER
+              tcp: COUNTER
             oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.3.116.99.112
           requestv4:
             type: SNMP
@@ -145,91 +148,333 @@ device_classes:
             datapoints:
               requestv6: COUNTER
             oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.9.114.101.113.117.101.115.116.118.54
+          resqueryv4:
+            type: SNMP
+            datapoints:
+              resqueryv4: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.11.114.101.115.95.113.117.101.114.121.118.52
+          resqueryv6:
+            type: SNMP
+            datapoints:
+              resqueryv6: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.11.114.101.115.95.113.117.101.114.121.118.54
+          recursion:
+            type: SNMP
+            datapoints:
+              recursion: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.9.114.101.99.117.114.115.105.111.110
+          recurserej:
+            type: SNMP
+            datapoints:
+              recurserej: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.10.114.101.99.117.114.115.101.114.101.106
+          duplicate:
+            type: SNMP
+            datapoints:
+              duplicate: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.9.100.117.112.108.105.99.97.116.101
+          dropped:
+            type: SNMP
+            datapoints:
+              dropped: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.7.100.114.111.112.112.101.100
+          resretry:
+            type: SNMP
+            datapoints:
+              resretry: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.9.114.101.115.95.114.101.116.114.121
+          response:
+            type: SNMP
+            datapoints:
+              response: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.8.114.101.115.112.111.110.115.101
+          resresponsev4:
+            type: SNMP
+            datapoints:
+              resresponsev4: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.14.114.101.115.95.114.101.115.112.111.110.115.101.118.52
+          resresponsev6:
+            type: SNMP
+            datapoints:
+              resresponsev6: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.14.114.101.115.95.114.101.115.112.111.110.115.101.118.54
+          resqueryrtt0:
+            type: SNMP
+            datapoints:
+              resqueryrtt0: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.13.114.101.115.95.113.117.101.114.121.114.116.116.48
+          resqueryrtt1:
+            type: SNMP
+            datapoints:
+              resqueryrtt1: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.13.114.101.115.95.113.117.101.114.121.114.116.116.49
+          resqueryrtt2:
+            type: SNMP
+            datapoints:
+              resqueryrtt2: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.13.114.101.115.95.113.117.101.114.121.114.116.116.50
+          resqueryrtt3:
+            type: SNMP
+            datapoints:
+              resqueryrtt3: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.13.114.101.115.95.113.117.101.114.121.114.116.116.51
+          resqueryrtt4:
+            type: SNMP
+            datapoints:
+              resqueryrtt4: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.13.114.101.115.95.113.117.101.114.121.114.116.116.52
+          resqueryrtt5:
+            type: SNMP
+            datapoints:
+              resqueryrtt5: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.13.114.101.115.95.113.117.101.114.121.114.116.116.53
+          success:
+            type: SNMP
+            datapoints:
+              success: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.7.115.117.99.99.101.115.115
+          formerr:
+            type: SNMP
+            datapoints:
+              formerr: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.7.102.111.114.109.101.114.114
+          servfail:
+            type: SNMP
+            datapoints:
+              servfail: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.8.115.101.114.118.102.97.105.108
+          nxdomain:
+            type: SNMP
+            datapoints:
+              nxdomain: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.8.110.120.100.111.109.97.105.110
+          nxrrset:
+            type: SNMP
+            datapoints:
+              nxrrset: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.7.110.120.114.114.115.101.116
+          failure:
+            type: SNMP
+            datapoints:
+              failure: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.7.102.97.105.108.117.114.101
+          xfrdone:
+            type: SNMP
+            datapoints:
+              xfrdone: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.7.120.102.114.100.111.110.101
+          xfrrej:
+            type: SNMP
+            datapoints:
+              xfrrej: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.7.102.111.114.109.101.114.114
+          resval:
+            type: SNMP
+            datapoints:
+              resval: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.7.114.101.115.95.118.97.108
+          resvalsuccess:
+            type: SNMP
+            datapoints:
+              resvalsuccess: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.14.114.101.115.95.118.97.108.115.117.99.99.101.115.115
+          resvalnegsuccess:
+            type: SNMP
+            datapoints:
+              resvalnegsuccess: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.17.114.101.115.95.118.97.108.110.101.103.115.117.99.99.101.115
+          resvalfail:
+            type: SNMP
+            datapoints:
+              resvalfail: COUNTER
+            oid: 1.3.6.1.4.1.2440.1.4.2.3.1.3.11.114.101.115.95.118.97.108.102.97.105.108
 
         graphs:
-            DNS-queries-UDP:
-              comments: [The number of queries received through UDP.]
-              graphpoints:
-                dnsudp:
-                  dpName: dnsudp_dnsudp
-                  lineType: AREA
-            DNS-queries-TCP:
-              comments: [The number of queries received through TCP.]
-              graphpoints:
-                dnstcp:
-                  dpName: dnstcp_dnstcp
-                  lineType: AREA
-            DNS-requests:
-              comments: [The number of queries received through IPv4 and IPv6.]
-              graphpoints:
-                requestv4:
-                  dpName: requestv4_requestv4
-                  lineType: AREA
-                requestv6:
-                  dpName: requestv6_requestv6
-                  lineType: AREA
-                  stacked: true
-
-#
-# General Name Server Statistics
-# FIXME : need to identify what is important and only do those
-# else, too many thing to implement. The list goes much further in the PDF doc
-#
-# dns_udp : 1.3.6.1.4.1.2440.1.4.2.3.1.3.3.117.100.112
-# dns_tcp : 1.3.6.1.4.1.2440.1.4.2.3.1.3.3.116.99.112
-# dns_requestv4 : 1.3.6.1.4.1.2440.1.4.2.3.1.3.9.114.101.113.117.101.115.116.118.52
-# dns_requestv6 : 1.3.6.1.4.1.2440.1.4.2.3.1.3.9.114.101.113.117.101.115.116.118.54
-# dns_res_queryv4 : 1.3.6.1.4.1.2440.1.4.2.3.1.3.11.114.101.115.95.113.117.101.114.121.118.52
-# dns_res_queryv6 : 1.3.6.1.4.1.2440.1.4.2.3.1.3.11.114.101.115.95.113.117.101.114.121.118.54
-# dns_recursion : 1.3.6.1.4.1.2440.1.4.2.3.1.3.9.114.101.99.117.114.115.105.111.110
-# dns_ recurserej : 1.3.6.1.4.1.2440.1.4.2.3.1.3.10.114.101.99.117.114.115.101.114.101.106
-# dns_duplicate : 1.3.6.1.4.1.2440.1.4.2.3.1.3.9.100.117.112.108.105.99.97.116.101
-# dns_dropped : 1.3.6.1.4.1.2440.1.4.2.3.1.3.7.100.114.111.112.112.101.100
-# dns_res_retry : 1.3.6.1.4.1.2440.1.4.2.3.1.3.9.114.101.115.95.114.101.116.114.121
-# dns_response : 1.3.6.1.4.1.2440.1.4.2.3.1.3.8.114.101.115.112.111.110.115.101
-# dns_res_responsev4 :  1.3.6.1.4.1.2440.1.4.2.3.1.3.14.114.101.115.95.114.101.115.112.111.110.115.101.118.52
-# dns_res_responsev6 : 1.3.6.1.4.1.2440.1.4.2.3.1.3.14.114.101.115.95.114.101.115.112.111.110.115.101.118.54
-
-# -----------------------------------------------------
-# DHCP service
-# -----------------------------------------------------
-
-# .1.3.6.1.4.1.2440.1.3.2.22.1.2.3.97.99.107
-# Variable name: ack
-#  Type: Integer
-# Description: The number of ACK answers sent.
-#
-# .1.3.6.1.4.1.2440.1.3.2.22.1.3.4.110.97.99.107
-# Variable name: nack
-#  Type: Integer
-# Description: The number of NACK answers sent.
-#
-# .1.3.6.1.4.1.2440.1.3.2.22.1.3.5.111.102.102.101.114
-# Variable name: offer
-#  Type: Integer
-# Description: The number of OFFER answers sent.
-#
-# .1.3.6.1.4.1.2440.1.3.2.22.1.3.6.105.110.102.111.114.109
-# Variable name: inform
-#  Type: Integer
-# Description: The number of INFORM messages received.
-#
-# .1.3.6.1.4.1.2440.1.3.2.22.1.3.7.100.101.99.108.105.110.101
-# Variable name: decline
-#  Type: Integer
-# Description: The number of DECLINE messages received.
-#
-# .1.3.6.1.4.1.2440.1.3.2.22.1.3.7.114.101.108.101.97.115.101
-# Variable name: release
-#  Type: Integer
-# Description: The number of RELEASE messages received.
-#
-# .1.3.6.1.4.1.2440.1.3.2.22.1.3.7.114.101.113.117.101.115.116
-# Variable name: request
-#  Type: Integer
-# Description: The number of REQUEST messages received.
-#
-# .1.3.6.1.4.1.2440.1.3.2.22.1.3.8.100.105.115.99.111.118.101.114
-# Variable name: discover
-#  Type: Integer
-# Description: The number of DISCOVER messages received.
+          DNS-udp:
+            comments: [The number of queries received through UDP.]
+            graphpoints:
+              udp:
+                dpName: udp_udp
+                lineType: AREA
+          DNS-tcp:
+            comments: [The number of queries received through TCP.]
+            graphpoints:
+              tcp:
+                dpName: tcp_tcp
+                lineType: AREA
+          DNS-requestv4:
+            comments: [The number of queries received through IPv4.]
+            graphpoints:
+              requestv4:
+                dpName: requestv4_requestv4
+                lineType: AREA
+          DNS-requestv6:
+            comments: [The number of queries received through IPv6.]
+            graphpoints:
+              requestv6:
+                dpName: requestv6_requestv6
+                lineType: AREA
+          DNS-resqueryv4:
+            comments: [The number of queries sent to external forwarder or authoritative servers using IPv4 for resolution.]
+            graphpoints:
+              resqueryv4:
+                dpName: resqueryv4_resqueryv4
+                lineType: AREA
+          DNS-resqueryv6:
+            comments: [The number of queries sent to external forwarder or authoritative servers using IPv6 for resolution.]
+            graphpoints:
+              resqueryv6:
+                dpName: resqueryv6_resqueryv6
+                lineType: AREA
+          DNS-recursion:
+            comments: [The number of queries requiring recursion.]
+            graphpoints:
+              recursion:
+                dpName: recursion_recursion
+                lineType: AREA
+          DNS-recurserej:
+            comments: [The number of rejected queries requiring recursion.]
+            graphpoints:
+              recurserej:
+                dpName: recurserej_recurserej
+                lineType: AREA
+          DNS-duplicate:
+            comments: [The number of duplicate queries received.]
+            graphpoints:
+              duplicate:
+                dpName: duplicate_duplicate
+                lineType: AREA
+          DNS-dropped:
+            comments: [The number of dropped queries.]
+            graphpoints:
+              dropped:
+                dpName: dropped_dropped
+                lineType: AREA
+          DNS-resretry:
+            comments: [The number of queries retried on external forwarder or authoritative servers.]
+            graphpoints:
+              resretry:
+                dpName: resretry_resretry
+                lineType: AREA
+          DNS-response:
+            comments: [The number of responses sent.]
+            graphpoints:
+              response:
+                dpName: response_response
+                lineType: AREA
+          DNS-resresponsev4:
+            comments: [The number of responses from external forwarder or authoritative servers using IPv4.]
+            graphpoints:
+              resresponsev4:
+                dpName: resresponsev4_resresponsev4
+                lineType: AREA
+          DNS-resresponsev6:
+            comments: [The number of responses from external forwarder or authoritative servers using IPv6.]
+            graphpoints:
+              resresponsev6:
+                dpName: resresponsev6_resresponsev6
+                lineType: AREA
+          DNS-resqueryrtt0-5:
+            comments: [The number of recursive queries with latency.]
+            graphpoints:
+              resqueryrtt0:
+                legend: latency < 10ms
+                dpName: resqueryrtt0_resqueryrtt0
+                lineType: AREA
+              resqueryrtt1:
+                legend: 10ms <= latency < 100ms
+                dpName: resqueryrtt1_resqueryrtt1
+                lineType: AREA
+                stacked: true
+              resqueryrtt2:
+                legend: 100ms <= latency < 500ms
+                dpName: resqueryrtt2_resqueryrtt2
+                lineType: AREA
+                stacked: true
+              resqueryrtt3:
+                legend: 500ms <= latency < 800ms
+                dpName: resqueryrtt3_resqueryrtt3
+                lineType: AREA
+                stacked: true
+              resqueryrtt4:
+                legend: 800ms <= latency < 1600ms
+                dpName: resqueryrtt4_resqueryrtt4
+                lineType: AREA
+                stacked: true
+              resqueryrtt5:
+                legend: latency >= 1600ms
+                dpName: resqueryrtt5_resqueryrtt5
+                lineType: AREA
+                stacked: true
+          DNS-success:
+            comments: [The number of queries completed successfully, returning the message NOERROR (RCODE 0).]
+            graphpoints:
+              success:
+                dpName: success_success
+                lineType: AREA
+          DNS-formerr:
+            comments: [The number of queries with a wrong format, returning the message FORMERR (RCODE 1).]
+            graphpoints:
+              formerr:
+                dpName: formerr_formerr
+                lineType: AREA
+          DNS-servfail:
+            comments: [The number of queries the server failed to complete, returning the message SERVFAIL (RCODE 2).]
+            graphpoints:
+              servfail:
+                dpName: servfail_servfail
+                lineType: AREA
+          DNS-nxdomain:
+            comments: [The number of queries where the domain name does not exist, returning the message NXDOMAIN (RCODE 3).]
+            graphpoints:
+              nxdomain:
+                dpName: nxdomain_nxdomain
+                lineType: AREA
+          DNS-nxrrset:
+            comments: [The number of queries for which the RR set should exist but does not, returning the message NXRRSET (RCODE 8).]
+            graphpoints:
+              nxrrset:
+                dpName: nxrrset_nxrrset
+                lineType: AREA
+          DNS-failure:
+            comments: [The number of queries failed for which the device sent another RCODE.]
+            graphpoints:
+              failure:
+                dpName: failure_failure
+                lineType: AREA
+          DNS-xfrdone:
+            comments: [The number of transfer queries successfully completed.]
+            graphpoints:
+              xfrdone:
+                dpName: xfrdone_xfrdone
+                lineType: AREA
+          DNS-xfrrej:
+            comments: [The number of transfer queries rejected.]
+            graphpoints:
+              xfrrej:
+                dpName: xfrrej_xfrrej
+                lineType: AREA
+          DNS-resval:
+            comments: [The total number of DNSSEC validation attempts.]
+            graphpoints:
+              resval:
+                dpName: resval_resval
+                lineType: AREA
+          DNS-resvalsuccess:
+            comments: [The total number of DNSSEC validation successfully completed.]
+            graphpoints:
+              resvalsuccess:
+                dpName: resvalsuccess_resvalsuccess
+                lineType: AREA
+          DNS-resvalnegsuccess:
+            comments: [The total number of DNSSEC NX validation successfully completed.]
+            graphpoints:
+              resvalnegsuccess:
+                dpName: resvalnegsuccess_resvalnegsuccess
+                lineType: AREA
+          DNS-resvalfail:
+            comments: [The total number of DNSSEC validation failures.]
+            graphpoints:
+              resvalfail:
+                dpName: resvalfail_resvalfail
+                lineType: AREA

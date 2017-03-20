@@ -1,4 +1,4 @@
-# Efficient iP DDI monitoring
+# Efficient IP DDI monitoring
 
 ## Introduction
 
@@ -10,16 +10,19 @@ I only had models SDS-550, SDS-1100 and SDS-2200 with OS version 6.x to test my 
 
 # Features
 
-- hardware monitoring:
-    - tbd
+- hardware monitoring: done by a distinct Zenpack (ZenPacks.community.iDRAC)
 - OS monitoring:
-    - tbd
+    - CPU, RAM, swap
+    - interface traffic
+    - filesystem usage
 - application monitoring:
-    - tbd
+    - DHCP statistics (ack, nack, offer, inform, decline, release, request, discover)
+    - DNS statistics (queries, answers, requests, transfer, DNSSEC)
+- service monitoring: done elsewhere
 
 # Release notes
 
-- xx.yy.2017 : 1.0.0 : initial version
+- 20.03.2017 : 1.0.0 : initial version
 
 # Installation
 
@@ -33,7 +36,7 @@ easy_install PyYAML
 
 ## Device class
 
-- create device class `FIXME`
+- the zenpack will automatically create the device class `/Server/EfficientIP` if not present.
 
 ## Zenpack
 
@@ -48,7 +51,7 @@ zopectl restart; zenhub restart
 
 ## set the Python class of the existing devices
 
-This is a one-time operation that is needed for devices that were present before the Zenpack installation (the devices added after installation get the correct Python class automatically). The symptom to decide if you need this: `WARNING zen.ApplyDataMap: no relationship:XXX found on:YYY` in zenhub.log.
+This is a one-time operation that might be needed for devices that were present before the Zenpack installation (the devices added after installation get the correct Python class automatically). The symptom to decide if you need this: `WARNING zen.ApplyDataMap: no relationship:XXX found on:YYY` in zenhub.log.
 
 *Warning*: this loops must be repeated until no device get moved anymore. Not sure why, maybe some glitch of Zenoss 4.x.
 
@@ -67,30 +70,15 @@ for d in dmd.Devices.Server.EfficientIP.getSubDevicesGen():
 
 ## Post-installation
 
-### MIB load
+The template binding must be done manually if it fails at installation time:
 
-If you want to automatically map the device models and the SNMP traps, you need to load two MIB's:
-
-```
-cd MIB
-cp FIXME-*.mib $ZENHOME/share/mibs/site
-cd $ZENHOME/share/mibs/site
-zenmib run -v 10
-zentrap restart
-```
-
-The go to Zenoss / advanced / MIBs. See if MIBs are available.
-
-### modeler plugins for /FIXME
-
-The plugins are automatically assigned during the Zenpack installation:
-
-- zenoss.snmp.NewDeviceMap
-- zenoss.snmp.DeviceMap
-- zenoss.snmp.InterfaceMap
-- zenoss.snmp.InterfaceAliasMap
-- zenoss.snmp.RouteMap
-- ... FIXME
+- go to /Server/EfficientIP
+- Details
+- Gear (lower left edge of browser window)
+- Bind templates
+  - Device (/server)
+  - DHCPstats (/Server/EfficientIP)
+  - DNSstats (/Server/EfficientIP)
 
 # Development notes
 
@@ -119,6 +107,11 @@ Debug mode for zenpack installation:
 
 `zenpack -v 10 --link --install ZenPacks.community.EfficientIPDDI`
 
+Build a ZenPack egg from source:
+
+- cd <ZENPACK_SOURCE>
+- python setup.py bdist_egg
+
 ## filesystem mapping
 
 In the VM, /tmp/vagrant is mapped to the Zenpack source, you can use these commands to install it:
@@ -128,11 +121,13 @@ In the VM, /tmp/vagrant is mapped to the Zenpack source, you can use these comma
 
 # Known issues
 
-- n/a
+- the template auto-bind for /Server/EfficientIP is not automatic. Work-around: do it manually.
 
 # To-do
 
-- n/a
+- identify why the template binding for DNS and DHCP doesn't work.
+  - Is this a bug fixed by a zenup ?
+  - to bind manually, editing the `zDeviceTemplates` as line doesn't work, it's a list that needs to be edited using the `bind template` gear function.
 
 # Resources
 
