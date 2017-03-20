@@ -3,7 +3,7 @@
 # or saved.  Do not modify them directly here.
 # NB: PACKAGES is deprecated
 NAME = "ZenPacks.community.EfficientIPDDI"
-VERSION = "1.0.0dev"
+VERSION = "1.0.0"
 AUTHOR = "Charles Bueche"
 LICENSE = "GPLv3"
 NAMESPACE_PACKAGES = ['ZenPacks', 'ZenPacks.community']
